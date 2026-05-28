@@ -21,7 +21,7 @@ public class QrCode {
 
     @EqualsAndHashCode.Include
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+//    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id",nullable = false,updatable = false)
     private UUID id;
 

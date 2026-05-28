@@ -2,8 +2,10 @@ package com.pd.ticketapp.mapper;
 
 import com.pd.ticketapp.domain.dto.*;
 import com.pd.ticketapp.domain.entity.Event;
+import com.pd.ticketapp.domain.entity.Ticket;
 import com.pd.ticketapp.domain.entity.TicketType;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring",unmappedTargetPolicy = ReportingPolicy.IGNORE)
@@ -36,4 +38,10 @@ public interface EventMapper {
     UpdateEventResponseDto toUpdateEventResponseDto(UpdateEventResponse response);
 
     UpdateTicketTypeResponseDto toUpdateEventTicketTypeResponseDto(UpdateTicketTypeResponse response);
+
+    ListPublishedEventResponseDto toListPublishedEventResponseDto(Event event);
+
+    GetPublishedEventTicketTypesDetailsResponseDto toGetPublishedEventTicketTypesDetailsResponseDto(TicketType ticketType);
+
+    GetPublishedEventDetailsResponseDto toGetPublishedEventDetailsResponseDto(Event event);
 }

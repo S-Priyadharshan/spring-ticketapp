@@ -1,26 +1,19 @@
 package com.pd.ticketapp.domain.dto;
 
-import com.pd.ticketapp.domain.enums.EventStatus;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public record GetEventDetailsResponseDto(
+public record GetPublishedEventDetailsResponseDto(
         UUID id,
         String name,
         LocalDateTime startDate,
         LocalDateTime endDate,
         String venue,
-        LocalDateTime salesStartDate,
-        LocalDateTime salesEndDate,
-        EventStatus status,
-        List<GetEventDetailsTicketTypesResponseDto> ticketTypes,
-        LocalDateTime createdAt,
-        LocalDateTime updatedAt
+        List<GetPublishedEventTicketTypesDetailsResponseDto> ticketTypes
 ) {
-    public GetEventDetailsResponseDto{
+    public GetPublishedEventDetailsResponseDto{
         if(ticketTypes==null){
             ticketTypes=new ArrayList<>();
         }

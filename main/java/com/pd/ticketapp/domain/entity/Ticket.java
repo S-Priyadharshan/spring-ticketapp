@@ -27,7 +27,7 @@ public class Ticket {
     @Column(name = "id",nullable = false,updatable = false)
     private UUID id;
 
-    @EqualsAndHashCode.Include
+//    @EqualsAndHashCode.Include
     @Column(name = "ticket_status",nullable = false)
     @Enumerated(EnumType.STRING)
     private TicketStatus status;
@@ -51,7 +51,7 @@ public class Ticket {
     @Column(name = "created_at",nullable = false,updatable = false)
     private LocalDateTime createdAt;
 
-    @EqualsAndHashCode.Include
+//    @EqualsAndHashCode.Include
     @LastModifiedDate
     @Column(name = "updated_at",nullable = false)
     private LocalDateTime updatedAt;

@@ -1,10 +1,7 @@
 package com.pd.ticketapp.controller;
 
 import com.pd.ticketapp.domain.dto.ErrorDto;
-import com.pd.ticketapp.exception.EventNotFoundException;
-import com.pd.ticketapp.exception.EventUpdateException;
-import com.pd.ticketapp.exception.TicketTypeNotFoundException;
-import com.pd.ticketapp.exception.UserNotFoundException;
+import com.pd.ticketapp.exception.*;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
@@ -81,5 +78,19 @@ public class GlobalExceptionHandler {
         log.error("Caught TicketTypeNotFoundException",ex);
         ErrorDto errorDto = new ErrorDto("Ticket Type not found");
         return new ResponseEntity<>(errorDto,HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(QrCodeGenerationException.class)
+    public ResponseEntity<ErrorDto> handleQrCodeGenerationException(QrCodeGenerationException ex){
+        log.error("Caught QrCodeGenerationException",ex);
+        ErrorDto errorDto = new ErrorDto("Unable to generate Qr Code");
+        return new ResponseEntity<>(errorDto,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(TicketSoldOutException.class)
+    public ResponseEntity<ErrorDto> handleTicketSoldOutException(TicketSoldOutException ex){
+        log.error("Caught TicketSoldOutException",ex);
+        ErrorDto errorDto = new ErrorDto("Ticket sold out");
+        return new ResponseEntity<>(errorDto,HttpStatus.CONFLICT);
     }
 }

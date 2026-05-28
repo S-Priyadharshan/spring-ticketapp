@@ -10,11 +10,11 @@ import java.util.UUID;
 public record ListEventResponseDto(
         UUID id,
         String name,
-        LocalDateTime start,
-        LocalDateTime end,
+        LocalDateTime startDate,
+        LocalDateTime endDate,
         String venue,
-        LocalDateTime salesStart,
-        LocalDateTime salesEnd,
+        LocalDateTime salesStartDate,
+        LocalDateTime salesEndDate,
         EventStatus status,
         List<ListEventTicketTypeResponseDto> ticketTypes
 ) {

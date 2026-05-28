@@ -4,6 +4,7 @@ import com.pd.ticketapp.domain.dto.*;
 import com.pd.ticketapp.domain.entity.Event;
 import com.pd.ticketapp.domain.entity.TicketType;
 import com.pd.ticketapp.domain.entity.User;
+import com.pd.ticketapp.domain.enums.EventStatus;
 import com.pd.ticketapp.exception.EventNotFoundException;
 import com.pd.ticketapp.exception.EventUpdateException;
 import com.pd.ticketapp.exception.TicketTypeNotFoundException;
@@ -147,5 +148,29 @@ public class EventServiceImpl implements EventService {
         return eventMapper.toUpdateEventResponse(existingEvent);
     }
 
+    @Override
+    @Transactional
+    public void deleteEventForOrganizer(UUID eventId,UUID userId){
+        getEventForOrganizer(eventId,userId).ifPresent(eventRepository::delete);
+    }
 
+    @Override
+    @Transactional
+    public Page<ListPublishedEventResponseDto> listPublishedEvents(Pageable pageable){
+        Page<Event> publishedEvents= eventRepository.findByStatus(EventStatus.PUBLISHED,pageable);
+        return publishedEvents.map(eventMapper::toListPublishedEventResponseDto);
+    }
+
+    @Override
+    @Transactional
+    public Page<ListPublishedEventResponseDto> searchPublishedEvents(String query,Pageable pageable){
+        Page<Event> publishedEvents = eventRepository.searchEvents(query, pageable);
+        return publishedEvents.map(eventMapper::toListPublishedEventResponseDto);
+    }
+
+    @Override
+    public Optional<GetPublishedEventDetailsResponseDto> getPublishedEvent(UUID eventId) {
+        Optional<Event> publishedEvent= eventRepository.findByIdAndStatus(eventId,EventStatus.PUBLISHED);
+        return publishedEvent.map(eventMapper::toGetPublishedEventDetailsResponseDto);
+    }
 }
